@@ -26,7 +26,15 @@ MILK_ADD =  'Milk Addiction'
 
 class Char:
     _items = {
-        HEALTH:     100,
+        STAT_AGIL: 10,
+        STAT_FLEX: 5,
+        STAT_STRN: 10,
+        STAT_SPED: 5,
+        STAT_LIBD: 10,
+        STAT_HLTH: 100,
+        STAT_ENRG: 100,
+        STAT_AROU: 0,
+        STAT_STAM: 50,
         }
 
 
@@ -34,11 +42,6 @@ class Char:
     def health(self):
         """The health stat for this character."""
         return self['stat_health']
-        
-    @property
-    def lust(self):
-        """The lust stat for this character."""
-        return self.['stat_lust']
         
     
     
