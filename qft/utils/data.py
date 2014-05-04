@@ -4,7 +4,8 @@
 def write_attr_subdicts(f, prefix, x)
     for da in x:        # class with dict type .attrs 
         for keyname in iter(da):   
-            # write lines as 'prefix.stuff.(x)name.keyname:(i.)someitem
+            # write lines as: (without stuff in '()' ) 
+            #   'prefix.stuff.(x)name.keyname:(da[keyname)item
             write_joined(f, (prefix,) + (x.name, keyname), da[keyname])
 
 def write_joined(f, keynames, values, kv_sep=':', keyname_sep='. ',
