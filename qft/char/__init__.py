@@ -20,36 +20,27 @@ HEALTH =    'Health'
 LUST =      'Lust'
 
 
-
-class Addiction(ValueDict):
-    __slots__ = ValueDict.__slots__, '_name')
-    def __init__(self, name):
-        self._name = name
-        self._items = {}
-    
-    @property
-    def name(self):
-        return self._name
-    
-CUM = 'Cum'
-MILK = 'Milk'
-ALCOHOL = 'Alcohol'
-    
-class AddictionTypes:
-    self._cum =     Addictions(CUM)
-    self._milk =    Addiction(MILK)
-    self._alcohol = Addictions(ALCOHOL)
         
+def write_char_data(f, char):
+    from qft.utils import write_attr_subdicts
+    cpfx = '.'join('char', char.name)   # char prefix (char.thischarsname)
+    for i in x._get_writables():    write_attr_subdicts(f, cpfx, i)
+    
+    
+    
+from baseclassses import AddictionTypes
 
 class BaseChar:
-    __slots__ = '_skills', '_main_stats'
     def __init__(self):
+        self._name =        ""
         self._party =       None
-        self._skills =      ValueDict()
+        self._skills =      Skills()
         self._main_stats =  MainStats()
-        self._body =        ValueDict()
+        self._body =        Body()
         self._addictions =  AddictionTypes():
-        
+    
+    def _get_writables(self):
+        return iter(self._body, self._skills, self._main_stats, self._addictions)
     
     @property
     def main_stats(self):
@@ -61,6 +52,15 @@ class BaseChar:
         return self._body
 
     @property
+    def name(self):
+        """The name of this character."""
+        return self._name
+        
+    @property
+    def age(self):
+        return self._age
+
+    @property
     def gender(self):
         return self._body.get_gender()
 
@@ -69,9 +69,9 @@ class BaseChar:
         return self._skills.is_ge(skill, min_level)
         
     
-class MainStats(ValueDict):
-    __slots__ = ValueDict.__slots__
-    def __init__(self):
+class MainStats(NamedValueDict):
+    __slots__ = Named.ValueDict.__slots__
+    def __init__(self, name):
         self._items = {
             STAT_HLTH: 100,
             STAT_ENRG: 100,
@@ -83,6 +83,8 @@ class MainStats(ValueDict):
             STAT_AROU: 0,
             STAT_STAM: 50,
         }
+    
+    
     
     
     
