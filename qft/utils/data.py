@@ -1,7 +1,7 @@
 
 
 # Magical Writing Stuff
-def write_attr_subdicts(f, prefix, x)
+def write_attr_subdicts(f, prefix, x):
     for da in x:        # class with dict type .attrs 
         for keyname in iter(da):   
             # write lines as: (without stuff in '()' ) 
