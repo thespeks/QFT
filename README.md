@@ -1,4 +1,4 @@
-Quest for Tamrin
+Quest for Termrin
 ================
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 ===================================================================
 For full licencing info see LICENCE
 
-Quest for Tamrin is a text based RPG.
+Quest for Termrin is a text based RPG.
 *(I'll put more here later...eventually)*
 
 --*Warning*--
