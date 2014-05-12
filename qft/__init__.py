@@ -103,10 +103,15 @@ class Party(OrderedDict):
 class Player:
     __slots__ = .__slots__
     def __init__(self):
-    self._items = {
-        CHARS:  Party(),
-        PC:     None
-        }
+    self._in_battle = False
+    self._pc =      None
+    self._party =   Party()
+    
+    
+    @property
+    def in_battle(self):
+        """True if the player party is currently in battle."""
+        return self._in_battle
         
 
 
