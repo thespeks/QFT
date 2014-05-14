@@ -19,6 +19,8 @@
 
 from xsbc.storio import Storio
 
+from .qft import data
+
 #from ccodes import CCODES_CONFIG
 #from codes import *
     
@@ -31,5 +33,5 @@ class _SB(Storio.Mixin):
     #   instead of __slots__ = StorageHandlerMixIn.__slots__
     __slots__ = StorageHandlerMixIn.__slots__
     def __init__(self):
-        self._storio_init()
+        self._storio_init(data)
 
