@@ -18,10 +18,13 @@ def run():
 
 
 # -- Game -------------------------------------------------------------------- #
+from xsbc.storio import StorIO
+
 game =      None
 player =    None
-global game, player
-__all__ = 'game', 'player'
+data =      StorIO
+global game, player, data
+__all__ = 'game', 'player', 'data'
 
 #   player = game.player
 
@@ -29,15 +32,6 @@ def _sanitize():
     # clear out/reset game and player variables
     current_game._variables.reset()
     player = None
-
-
-def _write_data(data, filepath)
-    import json
-    json.dump(json.dumps(data), filepath)
-    
-def _load_data(self, filepath):
-    import json
-    return json.loads(json.load(filepath))
     
     
 class Variables:
