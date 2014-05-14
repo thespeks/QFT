@@ -33,5 +33,5 @@ class _SB(Storio.Mixin):
     #   instead of __slots__ = StorageHandlerMixIn.__slots__
     __slots__ = StorageHandlerMixIn.__slots__
     def __init__(self):
-        self._storio_init(data, code)
+        self._storio_init(data, ccode=0)
 
