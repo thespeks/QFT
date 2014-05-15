@@ -90,6 +90,13 @@ class Char(Storio.SIMixin):
         """Return True if this character has given skill of at least min_level"""
         return _is_level(SKILLS, skill, min_level) # TODO implement XP
     
+    def stat_level(self, stat, substat=LEVEL):
+        try: return self[stat][substat]
+        except: return 0
+    
+    def stat_level_plus_mult(self, stat):
+        return self.get_stat_level(stat) * self.get_stat_level(stat, MULT]
+    
         
     def _is_level(self, code, key, min_level):
         try: return self[code][key] > min_level
