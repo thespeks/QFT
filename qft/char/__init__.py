@@ -1,23 +1,4 @@
 
-# Male Stats
-VERILITY =  'Verility'  # only valid if balls
-
-# Male Statuses
-RUT =       'Rut'
-
-# Female Stats  
-FERTILITY = 'Fertility' # only valid if ovaries
-
-# Female Statuses
-PREG =      'Pregnant'
-HEAT =      'Heat'
-
-# Other
-LACT =      'Lactation' # only if has nipples       
-
-# Basic Stats
-HEALTH =    'Health'
-LUST =      'Lust'
 
 
 from .codes.ccodes import CCODES_CHARS
@@ -145,26 +126,3 @@ def _chk_reg(char, hint):
         time.sleep(0.1)
         return _reg_char(char, hint+1)
 
-    
-class MainStats(NamedValueDict):
-    __slots__ = Named.ValueDict.__slots__
-    def __init__(self, name):
-        self._items = {
-            STAT_HLTH: 100,
-            STAT_ENRG: 100,
-            STAT_AGIL: 10,
-            STAT_FLEX: 5,
-            STAT_STRN: 10,
-            STAT_SPED: 5,
-            STAT_LIBD: 10,
-            STAT_AROU: 0,
-            STAT_STAM: 50,
-        }
-    
-    
-    
-    
-    
-    
-    
-    
