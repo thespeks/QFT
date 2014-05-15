@@ -24,19 +24,16 @@ from .codes.ccodes import CCODES_CHARS
 from .codes.ccodes import CCODES_CHAR
 from .codes import *
 
-        
-
-
 from xsbc.storio import Storio
+
 
 class Char(Storio.SIMixin):
     __slots__ = SSIHandlerMixin.__slots__ + ('_charid',)
     def __init__(self, charid=None):
         # Storio init stuff
         from qft import data
-        self._storio_init(data)
-        
-        self._ccode = CCODES_CHAR
+        self._storio_init(data, CCODES_CHAR)
+
         self._charid = None
         _reg_char(self, charid)
         
@@ -72,23 +69,54 @@ class Char(Storio.SIMixin):
     def _set_height(self, height):  self[HEIGHT] = x
     height = property(_get_height, _set_height, 
             doc="The height of this character.")
+    
+    @property    
+    def statuses(self):
+        """Get statuses for this character."""
+        return self[STAUSES]
         
     # attribute getters - these are not stored, instead generated on call
     def get_gender(self):
         """The gender of this character."""
-        return    
+        if self._has_bp(COCK):
+            if self._has_bp(POON):      return GEND_H           # herm
+            elif self[BODY][BOOB, SIZE, 0] > 1: return GEND_DG  # dickgirl
+            else:                       return GEND_M           # male
+        elif self._has_bp(POON):
+            if self[BODY][BOOB, SIZE, 0] < 1: return GEND_CB    # cuntboi
+            else:                       return GEND_F           # female
+        else:                           return GEND_N           # neuter
+        
+    def get_pronoun(self, assigned=False):
+        if assigned:    # by self or player
+            try: return self[GENDER, PRONOUN, assigned]
+            except:     # get by gender
+                if self.get_gender() == GEND_M or GEND_CB: return 1 # masucline
+                else: return 0 # Feminine
+                
         
     def get_weight(self):
         """The weight of this character."""
         return    
     
             
-    def in_party(self, p):
-        return
+    def in_party(self, p=None):
+        """True if this char is in 'p'"""
+        if p is None:   return self.charid in data[CCODE_PARTY][ALL_IDS]
+        else:           
     
     def has_skill(self, skill, min_level=1):
         """Return True if this character has given skill of at least min_level"""
-        if self[SKILLS]        
+        return _is_level(SKILLS, skill, min_level) # TODO implement XP
+    
+        
+    def _is_level(self, code, key, min_level):
+        try: return self[code][key] > min_level
+        except: return False
+        
+    def _has_bp(self, bp, sp=0, st=0):
+        try: return (bp, sp, st) in self[BODY]
+        except return False
         
 # -- Some basic utils -------------------------------------------------------- #
 def get_char_codes(force=False):
