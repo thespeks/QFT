@@ -1,5 +1,5 @@
 # 1 - 199
-ALL_IDS =       20
+ALL_IDS =             20
 
 
 TYPE =                81
@@ -27,3 +27,15 @@ SHAPE =               108
 
 COL = COLOR =         121
 COL2 = COLOR2 =       122
+
+LEVEL =               150
+MULT =                151
+
+
+SEC = SECONDS =       193
+MIN = MINUTES =       194
+HOURS =               195
+DAYS =                196
+WEEKS =               197
+YEARS =               198
+TIME =                199
