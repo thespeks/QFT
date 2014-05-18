@@ -7,6 +7,12 @@ from .codes import *
 
 from xsbc.storio import Storio
 
+__all__ = 'get_pc'
+
+def get_pc()
+    from qft import data
+    return data[(CCODES_CHAR, 0)]
+
 
 class Char(Storio.SIMixin):
     __slots__ = SSIHandlerMixin.__slots__ + ('_charid',)
@@ -24,11 +30,17 @@ class Char(Storio.SIMixin):
     def st_dx(self):
         return (self._CCODE, self._charid)
     
-    def _get_row(self): return self.st_gsi(CHAR_ROW)
+    def _get_row(self): return self.st_gsi(ROW)
     def _set_row(self r):
-        if r != self[CHAR_ROW] and r in range(-1, 1):
-            self.[CHAR_ROW] = r
+        if r != self[ROW] and r in range(-1, 1):
+            self[ROW] = r
     row = property(_get_row, _set_row, doc="The row for this character.")
+    
+    
+    @property
+    def is_pc(self):
+        """True if this character is the player character. (charid 0)"""
+        return self._charid == 0
     
     @property
     def row_name(self):
