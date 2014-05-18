@@ -3,9 +3,7 @@ class Party:
     def __init__(self):
         self._slots = []
         
-    def get_chars(self):
-        """Return an iterator of characters in order."""
-        return iter(self._dg(i) for i in range(CHAR_SLOT0, CHAR_SLOT4))
+        
 # ---------------------------------------------------------------------------- #
 
 from baseclasses import _SB
@@ -13,7 +11,7 @@ from baseclasses import _SB
 from codes.ccodes import CCODES_PARTY
 from codes import *
 
-pcparty = PlayerParty
+pcparty = PlayerParty()
 __all__ = 'pcparty'
 
 class PlayerParty(_SB):
@@ -21,6 +19,15 @@ class PlayerParty(_SB):
     __slots__ = _SB.__slots__
     def __init__(self):
         self._ccode = CCODES_PARTY
+        
+    @property
+    def is_player(self):
+        return True
+
+    @property
+    def location(self):
+        from char import get_pc
+        return get_pc.location
 
     def get_chars(self):
         """Return an iterator of characters in order."""
@@ -32,3 +39,12 @@ class PlayerParty(_SB):
             tmp = self._st_gi(a)
             self._st_si(a, self._st_gi(b))
             self._st_si(b, tmp)
+            
+            
+class EnemyParty(Party):
+    """Enemy Party Class."""
+    __slots__ = Party.__slots__
+    
+    @property
+    def is_player(self):
+        return False
