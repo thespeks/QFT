@@ -15,7 +15,7 @@ def get_pc()
 
 
 class Char(Storio.SIMixin):
-    __slots__ = SSIHandlerMixin.__slots__ + ('_charid',)
+    __slots__ = SSIHandlerMixin.__slots__ + ('_charid', '_loc')
     def __init__(self, charid=None):
         # Storio init stuff
         from qft import data
@@ -26,6 +26,9 @@ class Char(Storio.SIMixin):
         
         # make a subdict if non-existant
         if self.st_hi(): data[(CCODES_CHAR, self._charid)] = {}
+        
+        self._loc = Location(self, code=LOC)
+    
     
     def st_dx(self):
         return (self._CCODE, self._charid)
@@ -35,7 +38,11 @@ class Char(Storio.SIMixin):
         if r != self[ROW] and r in range(-1, 1):
             self[ROW] = r
     row = property(_get_row, _set_row, doc="The row for this character.")
-    
+
+    @property
+    def location(self):
+        """Location data for this character."""
+        return self._loc
     
     @property
     def is_pc(self):
@@ -117,6 +124,36 @@ class Char(Storio.SIMixin):
     def _has_bp(self, bp, sp=0, st=0):
         try: return (bp, sp, st) in self[BODY]
         except return False
+        
+        
+from xsbc.storio import SubData
+
+class Location(SubData):
+    __slots__ = SubData.__slots__
+    
+    def _get_reg(self):       return self.__getitem__(0)
+    def _set_reg(self, x):    self.__setitem__(0, x)
+    region = property(_get_reg, _set_reg, doc="The region this character is in.")
+    reg = region
+    
+    def _get_loc(self):       return self.__getitem__(1)
+    def _set_loc(self, x):    self.__setitem__(1, x)
+    location = property(_get_map, _set_map, doc="The location this character is in.")
+    loc = location
+    
+    def _get_pos(self):       return self.__getitem__(2)
+    def _set_pos(self, x):    self.__setitem__(2, x)
+    position = property(_get_pos, _set_pos, doc="The x,y position this character is in.")
+    pos = position
+    
+    def _get_px(self):       return self._parent[self._code][2][0]
+    def _set_px(self, x):    self._char[self._code][2][0] = x
+    x = property(_get_px, _set_px, doc="The x position this character is in.")
+    
+    def _get_py(self):       return self._parent[self._code][2][1]
+    def _set_py(self, y):    self._parent[self._code][2][1] = y
+    y = property(_get_py, _set_py, doc="The x position this character is in.")
+    
         
 # -- Some basic utils -------------------------------------------------------- #
 def get_char_codes(force=False):
