@@ -6,7 +6,7 @@ class Party:
         
 # ---------------------------------------------------------------------------- #
 
-from baseclasses import _SB
+from xsbc.storio import Storio
 
 from codes.ccodes import CCODES_PARTY
 from codes import *
@@ -14,11 +14,14 @@ from codes import *
 pcparty = PlayerParty()
 __all__ = 'pcparty'
 
-class PlayerParty(_SB):
+class PlayerParty(Storio.Mixin):
     """PC Party class."""
-    __slots__ = _SB.__slots__
+    __slots__ = Storio.Mixin.__slots__
     def __init__(self):
-        self._ccode = CCODES_PARTY
+        
+        from qft import data
+        from codes.ccodes import CCODES_GAME
+        self._storio_init(data, CCODES_GAME)
         
     @property
     def is_player(self):
