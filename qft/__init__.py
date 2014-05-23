@@ -38,10 +38,13 @@ class Variables:
     __slots__ = '_items'
     
 
-class Game:
+class Game(Storio.Mixin):
     __slots__ = '_variables'
-    def __init__(self, 
+    def __init__(self): 
         self._variables =   Variables()
+        
+        from codes.ccodes import CCODES_GAME
+        self._storio_init(data, CCODES_GAME)
         
     @property
     def variables(self):
@@ -52,25 +55,13 @@ class Game:
         """Return variable v if in variables else return fallback."""
         try:    return self._variables[v]
         except: return fallback
-        
-    def get_writable(self):
-        """Return a new dict containing only the writable items."""
-        import datetime
-        self._variables[LAST_SAVE_TIME] = datetime.datetime.today()
-        d = {
-            'variables': self._variables
-            'player': player._items()
-            ## File comments ------------------- ##
-            '_Comment': {
-                'savetime': self._variables[LAST_SAVE_TIME]      
-                }
-            ## End file comments --------------- ##
-            }
             
-    def load_(self, filepath):
-        x = _load_data(filepath)
-        self._variables =   x['variables']
-        self._player =      x['player']
+    def save_game(self):
+        if self.is_savable():
+            self[COMMENT] = ""  # TODO
+            import datetime
+            self[SAVE_TIME] = datetime.datetime.now()
+            data.json_dump(fp)
         
     # Events ---- #
     def _init_game(self):
@@ -85,13 +76,6 @@ class Game:
         """Called when exiting to the desktop."""
         pass
 
-
-# -- Player ------------------------------------------------------------------ #
-
-from xsbc import OrderedDict
-
-class Party(OrderedDict):
-    __slots__ = OrderedDict.__slots__
 
 
 class Player:
