@@ -7,11 +7,18 @@ from .codes import *
 
 from xsbc.storio import Storio
 
-__all__ = 'get_pc'
+__all__ = 'active_chars', 'get_pc'
+
+active_chars = {}
+
+def get_char(charid):
+    global active_chars
+    from qft import data
+    try:    return active_chars[CCODES_char, charid]
+    except: return Char(charid)
 
 def get_pc()
-    from qft import data
-    return data[(CCODES_CHAR, 0)]
+    return get_char(0)
 
 
 class Char(Storio.SIMixin):
@@ -21,14 +28,16 @@ class Char(Storio.SIMixin):
         from qft import data
         self._storio_init(data, CCODES_CHAR)
 
-        self._charid = None
-        _reg_char(self, charid)
-        
+        if charid == None:  
+            _reg_char(self, charid)
+
         # make a subdict if non-existant
         if self.st_hi(): data[(CCODES_CHAR, self._charid)] = {}
         
         self._loc = Location(self, code=LOC)
-    
+        
+        # add to active_chars
+        active_chars[CCODES_CHAR, self._charid] = self
     
     def st_dx(self):
         return (self._CCODE, self._charid)
