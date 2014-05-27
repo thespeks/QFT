@@ -92,5 +92,13 @@ class Player:
         return self._in_battle
         
 
-
+# -- QFT Base Classes -------------------------------------------------------- #
+class QFTObj:
+    __slots__ = ()
+    def __init__(self):
+        pass
+        
+    def get_type(self):
+        """The type of object this is."""
+        return self.__class__.__name__.lower()
 
