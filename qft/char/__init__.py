@@ -137,31 +137,38 @@ class Char(Storio.SIMixin):
         
 from xsbc.storio import SubData
 
-class Location(SubData):
+from qft.location import _Loc
+
+class Location(_Loc, SubData):
     __slots__ = SubData.__slots__
+    def __init__(self, parent, code):
+        self._parent =  parent
+        self._code =    code
+    
+    def __getitem__(self, i):       return self._parent[self._code][i]
+    def __setitem__(self, i, v):    self._parent[self._code][i] = v
     
     def _get_reg(self):       return self.__getitem__(0)
     def _set_reg(self, x):    self.__setitem__(0, x)
-    region = property(_get_reg, _set_reg, doc="The region this character is in.")
+    region = property(_get_reg, _set_reg, doc="The region.")
     reg = region
     
-    def _get_loc(self):       return self.__getitem__(1)
-    def _set_loc(self, x):    self.__setitem__(1, x)
-    location = property(_get_map, _set_map, doc="The location this character is in.")
-    loc = location
+    def _get_sector(self):       return self.__getitem__(1)
+    def _set_sector(self, x):    self.__setitem__(1, x)
+    sector = property(_get_sector, _set_sector, doc="The current sector.")
     
     def _get_pos(self):       return self.__getitem__(2)
     def _set_pos(self, x):    self.__setitem__(2, x)
-    position = property(_get_pos, _set_pos, doc="The x,y position this character is in.")
+    position = property(_get_pos, _set_pos, doc="The x,y position.")
     pos = position
     
-    def _get_px(self):       return self._parent[self._code][2][0]
+    def _get_px(self):       return self._char[self._code][2][0]
     def _set_px(self, x):    self._char[self._code][2][0] = x
-    x = property(_get_px, _set_px, doc="The x position this character is in.")
+    x = property(_get_px, _set_px, doc="The x position.")
     
-    def _get_py(self):       return self._parent[self._code][2][1]
-    def _set_py(self, y):    self._parent[self._code][2][1] = y
-    y = property(_get_py, _set_py, doc="The x position this character is in.")
+    def _get_py(self):       return self._char[self._code][2][1]
+    def _set_py(self, y):    self._char[self._code][2][1] = y
+    y = property(_get_py, _set_py, doc="The y position.")
     
         
 # -- Some basic utils -------------------------------------------------------- #
