@@ -1,3 +1,6 @@
+This project is now under developement in a different repo as Delerium.
+This repo will remain for future reference.
+
 Quest for Temora
 ================
 This program is free software: you can redistribute it and/or modify
